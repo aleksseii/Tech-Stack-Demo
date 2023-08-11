@@ -1,7 +1,16 @@
 version: '3'
 services:
+  postres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.1.2
+    container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -10,6 +19,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:7.1.2
+    container_name: kafka
     ports:
       - "9093:9093"
       - "9092:9092"
@@ -26,6 +36,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.1.2
+    container_name: schema-registry
     ports:
       - "28081:8081"
     depends_on:
